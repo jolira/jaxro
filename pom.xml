@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.jolira</groupId>
+    <artifactId>superpom</artifactId>
+    <version>1.0.9</version>
+  </parent>
+  <artifactId>jaxro</artifactId>
+  <version>1.2.8-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>JAX Read-Only</name>
+  <description>A very simple generator for creating wrapper classes that create XML output from existing Java classes.</description>
+  <modules>
+    <module>src</module>
+  </modules>
+  <scm>
+    <connection>scm:svn:http://jolira-tools.googlecode.com/svn/jaxro/trunk</connection>
+    <developerConnection>scm:svn:https://jolira-tools.googlecode.com/svn/jaxro/trunk</developerConnection>
+    <url>http://jolira-tools.googlecode.com/svn/jaxro/trunk</url>
+  </scm>
+  <url>http://code.google.com/p/jolira-tools/wiki/jaxro</url>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.8.1</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>

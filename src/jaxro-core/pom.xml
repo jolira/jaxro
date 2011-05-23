@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>jaxro-src</artifactId>
+    <groupId>com.jolira</groupId>
+    <version>1.2.8-SNAPSHOT</version>
+  </parent>
+  <artifactId>jaxro-core</artifactId>
+  <packaging>jar</packaging>
+  <name>JAXRO Core</name>
+  <description>Core Libraries of JAXRO</description>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
+
