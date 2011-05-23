@@ -14,9 +14,9 @@
     <module>src</module>
   </modules>
   <scm>
-    <connection>scm:svn:http://jolira-tools.googlecode.com/svn/jaxro/trunk</connection>
-    <developerConnection>scm:svn:https://jolira-tools.googlecode.com/svn/jaxro/trunk</developerConnection>
-    <url>http://jolira-tools.googlecode.com/svn/jaxro/trunk</url>
+    <connection>scm:git:git@github.com:jolira/jaxro.git</connection>
+    <developerConnection>scm:git:git@github.com:jolira/jaxro.git</developerConnection>
+    <url>https://github.com/jolira/jaxro</url>
   </scm>
   <url>http://code.google.com/p/jolira-tools/wiki/jaxro</url>
   <dependencyManagement>
