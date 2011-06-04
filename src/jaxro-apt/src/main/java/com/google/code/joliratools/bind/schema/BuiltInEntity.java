@@ -1,5 +1,6 @@
 package com.google.code.joliratools.bind.schema;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -10,9 +11,10 @@ import java.util.Map;
 import com.google.code.joliratools.bind.model.Class;
 import com.google.code.joliratools.bind.reflect.ClassAdapter;
 
+/**
+ *
+ */
 public final class BuiltInEntity extends Entity {
-    static final BuiltInEntity STRING = new BuiltInEntity("xs:string", true);
-
     private static void add(final HashMap<String, Entity> builtins,
             final java.lang.Class<?> clazz, final BuiltInEntity entity) {
         final Class _class = new ClassAdapter(clazz);
@@ -20,6 +22,32 @@ public final class BuiltInEntity extends Entity {
 
         entity.compile(_class, null);
         builtins.put(name, entity);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (isObject ? 1231 : 1237);
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof BuiltInEntity)) {
+            return false;
+        }
+        final BuiltInEntity other = (BuiltInEntity) obj;
+        if (isObject != other.isObject) {
+            return false;
+        }
+        return true;
     }
 
     static Map<String, Entity> getBuiltIns() {
@@ -33,7 +61,8 @@ public final class BuiltInEntity extends Entity {
         add(builtins, byte.class, new BuiltInEntity("xs:byte", false));
         add(builtins, char.class, new BuiltInEntity("xs:string", false));
         add(builtins, boolean.class, new BuiltInEntity("xs:boolean", false));
-        add(builtins, String.class, STRING);
+        add(builtins, String.class, new BuiltInEntity("xs:string", false));
+        add(builtins, Serializable.class, new BuiltInEntity("xs:string", false));
         add(builtins, Integer.class, new BuiltInEntity("xs:integer", true));
         add(builtins, Short.class, new BuiltInEntity("xs:short", true));
         add(builtins, Long.class, new BuiltInEntity("xs:long", true));
@@ -52,7 +81,7 @@ public final class BuiltInEntity extends Entity {
 
     private final boolean isObject;
 
-    private BuiltInEntity(final String name, final boolean isObject) {
+    BuiltInEntity(final String name, final boolean isObject) {
         super(name);
 
         this.isObject = isObject;

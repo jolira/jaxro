@@ -94,8 +94,8 @@ public class SchemaTest {
                 assertEquals(2, elems.length);
                 assertEquals(AccountStatus.OPEN.name(), elems[0].getName());
                 assertEquals(AccountStatus.CLOSED.name(), elems[1].getName());
-                assertEquals(BuiltInEntity.STRING, elems[0].getType());
-                assertEquals(BuiltInEntity.STRING, elems[1].getType());
+                assertEquals(new BuiltInEntity("xs:string", false), elems[0].getType());
+                assertEquals(new BuiltInEntity("xs:string", false), elems[1].getType());
 
                 return null;
             }

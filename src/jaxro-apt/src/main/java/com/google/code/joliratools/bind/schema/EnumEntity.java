@@ -12,6 +12,8 @@ package com.google.code.joliratools.bind.schema;
 
 import com.google.code.joliratools.bind.model.Class;
 
+/**
+ */
 public final class EnumEntity extends Entity {
     private Property[] properties;
 
@@ -27,12 +29,15 @@ public final class EnumEntity extends Entity {
         final Property[] props = new Property[enums.length];
 
         for (int idx = 0; idx < props.length; idx++) {
-            props[idx] = new Property(enums[idx], BuiltInEntity.STRING);
+            props[idx] = new Property(enums[idx], new BuiltInEntity("xs:string", false));
         }
 
         properties = props;
     }
 
+    /**
+     * @return the properties
+     */
     public Property[] getProperties() {
         if (!isCompiled()) {
             throw new IllegalStateException();

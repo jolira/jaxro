@@ -1,5 +1,6 @@
 package com.google.code.joliratools.bind.demo;
 
+import java.io.Serializable;
 import com.google.code.joliratools.bind.annotation.RoTransient;
 import com.google.code.joliratools.bind.annotation.RoType;
 import java.util.Collection;
@@ -24,7 +25,7 @@ public class Account {
 
         return notices;
     }
-    
+
     public List<String> getNicknames() {
         List<String> names = new ArrayList<String>();
 
@@ -34,24 +35,24 @@ public class Account {
 
         return names;
     }
-    
+
     public List<Customer> getAccountHolders() {
         List<Customer> customers = new ArrayList<Customer>();
-        
+
         customers.add(CUSTOMER);
-        
+
         return customers;
     }
-    
+
     public List getHolders() {
         return null;
     }
-    
+
     public double getBalance() {
         return 0.0;
     }
 
-    public String getNumber() {
+    public Serializable getNumber() {
         return "1";
     }
 
@@ -63,14 +64,14 @@ public class Account {
     public AccountStatus getStatus() {
         return AccountStatus.OPEN;
     }
-    
+
     public String getNew() {
         return "this is new";
     }
     public String getNullString() {
         return null;
     }
-    
+
     public String[] getNullArray() {
         return null;
     }
