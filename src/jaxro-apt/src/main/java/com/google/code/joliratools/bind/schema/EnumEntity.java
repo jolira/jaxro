@@ -29,7 +29,7 @@ public final class EnumEntity extends Entity {
         final Property[] props = new Property[enums.length];
 
         for (int idx = 0; idx < props.length; idx++) {
-            props[idx] = new Property(enums[idx], new BuiltInEntity("xs:string", false));
+            props[idx] = new Property(enums[idx], new BuiltInEntity("xs:string", true));
         }
 
         properties = props;

@@ -61,8 +61,8 @@ public final class BuiltInEntity extends Entity {
         add(builtins, byte.class, new BuiltInEntity("xs:byte", false));
         add(builtins, char.class, new BuiltInEntity("xs:string", false));
         add(builtins, boolean.class, new BuiltInEntity("xs:boolean", false));
-        add(builtins, String.class, new BuiltInEntity("xs:string", false));
-        add(builtins, Serializable.class, new BuiltInEntity("xs:string", false));
+        add(builtins, String.class, new BuiltInEntity("xs:string", true));
+        add(builtins, Serializable.class, new BuiltInEntity("xs:string", true));
         add(builtins, Integer.class, new BuiltInEntity("xs:integer", true));
         add(builtins, Short.class, new BuiltInEntity("xs:short", true));
         add(builtins, Long.class, new BuiltInEntity("xs:long", true));
