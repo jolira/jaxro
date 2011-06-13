@@ -27,7 +27,7 @@ public final class BuiltInEntity extends Entity {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        int result = super.hashCode();
         result = prime * result + (isObject ? 1231 : 1237);
         return result;
     }
@@ -37,7 +37,7 @@ public final class BuiltInEntity extends Entity {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (!super.equals(obj)) {
             return false;
         }
         if (!(obj instanceof BuiltInEntity)) {
@@ -86,6 +86,7 @@ public final class BuiltInEntity extends Entity {
 
         this.isObject = isObject;
     }
+
 
     @Override
     void compile(final Class clazz, final SchemaResolver resolver) {
