@@ -17,7 +17,21 @@ import com.google.code.joliratools.bind.model.Annotation;
 import com.google.code.joliratools.bind.model.Class;
 import com.google.code.joliratools.bind.model.Method;
 
+/**
+ * Represents a property.
+ * 
+ * @author jfk
+ * 
+ */
 public final class Property {
+    /**
+     * Create a new one.
+     * 
+     * @param method
+     *            the method
+     * @param resolver
+     * @return the property that was created.
+     */
     public static Property createIfApplicable(final Method method,
             final SchemaResolver resolver) {
         if (!method.isPublic()) {
@@ -171,14 +185,23 @@ public final class Property {
         qualifer = getQualifier(method);
     }
 
+    /**
+     * @return the name of the accessor
+     */
     public String getAccessorName() {
         return accessorName;
     }
 
+    /**
+     * @return the upper bound
+     */
     public String getMaxOccurs() {
         return maxOccurs;
     }
 
+    /**
+     * @return the name of the property
+     */
     public String getName() {
         return name;
     }
@@ -190,6 +213,9 @@ public final class Property {
         return qualifer;
     }
 
+    /**
+     * @return the type of the property
+     */
     public Entity getType() {
         return type;
     }

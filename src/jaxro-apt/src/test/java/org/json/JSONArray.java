@@ -78,6 +78,7 @@ import java.util.Map;
  * @author JSON.org
  * @version 2009-04-14
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class JSONArray {
 
     /**
@@ -153,8 +154,8 @@ public class JSONArray {
             case ')':
                 if (q != c) {
                     throw x
-                            .syntaxError("Expected a '" + new Character(q)
-                                    + "'");
+                    .syntaxError("Expected a '" + new Character(q)
+                    + "'");
                 }
                 return;
             default:
@@ -165,6 +166,8 @@ public class JSONArray {
 
     /**
      * Construct a JSONArray from an array
+     * 
+     * @param array
      * 
      * @throws JSONException
      *             If not an array.
@@ -934,6 +937,8 @@ public class JSONArray {
      * compactness, no whitespace is added.
      * <p>
      * Warning: This method assumes that the data structure is acyclical.
+     * 
+     * @param writer
      * 
      * @return The writer.
      * @throws JSONException

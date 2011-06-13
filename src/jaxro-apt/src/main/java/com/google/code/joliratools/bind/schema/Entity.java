@@ -12,11 +12,24 @@ package com.google.code.joliratools.bind.schema;
 
 import com.google.code.joliratools.bind.model.Class;
 
+/**
+ * Represents an entity in a schema.
+ * 
+ * @author jfk
+ * @since 1.0
+ * 
+ */
 public abstract class Entity {
     private boolean isCompiled = false;
     private final String name;
     private String className = null;
 
+    /**
+     * Create a new one.
+     * 
+     * @param name
+     *            the name of the entity
+     */
     protected Entity(final String name) {
         this.name = name;
     }
@@ -59,6 +72,11 @@ public abstract class Entity {
         className = _clazz.getName();
     }
 
+    /**
+     * @return the name of the associated class.
+     * @throws IllegalStateException
+     *             when called before the class is compiled.
+     */
     public String getClassName() {
         if (!isCompiled()) {
             throw new IllegalStateException();
@@ -67,12 +85,18 @@ public abstract class Entity {
         return className;
     }
 
+    /**
+     * @return the name of the entity
+     */
     public String getName() {
         assert name != null;
 
         return name;
     }
 
+    /**
+     * @return {@literal true} to indicate that the entity is compiled.
+     */
     protected boolean isCompiled() {
         return isCompiled;
     }
@@ -82,5 +106,13 @@ public abstract class Entity {
         return name;
     }
 
+    /**
+     * Investigate the internals of the entity.
+     * 
+     * @see "http://en.wikipedia.org/wiki/Visitor_pattern"
+     * @param visitor
+     *            the visitor
+     * @return the result of the visit.
+     */
     public abstract <T> T visit(final EntityVisitor<T> visitor);
 }

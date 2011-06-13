@@ -110,6 +110,13 @@ public class Schema {
 
     private final String commonNamespace;
 
+    /**
+     * Create a new schema.
+     * 
+     * @param messager
+     * @param classes
+     * @param isDense
+     */
     public Schema(final Messager messager, final Class[] classes,
             final boolean isDense) {
         commonNamespace = getCommonNamespace(classes);
@@ -136,6 +143,16 @@ public class Schema {
         rootElements = properties.toArray(new Property[psize]);
     }
 
+    /**
+     * Compile the schema.
+     * 
+     * @param entityByClassName
+     * @param _entities
+     * @param properties
+     * @param clazz
+     * @param resolver
+     * @return the entity represented by the schema.
+     */
     protected Entity compile(final Map<String, Entity> entityByClassName,
             final Collection<Entity> _entities,
             final Collection<Property> properties, final Class clazz,
@@ -244,14 +261,23 @@ public class Schema {
         return entity;
     }
 
+    /**
+     * @return the common namespace.
+     */
     public String getCommonNamespace() {
         return commonNamespace;
     }
 
+    /**
+     * @return the entities found in the schema.
+     */
     public Entity[] getEntities() {
         return entities;
     }
 
+    /**
+     * @return the root element
+     */
     public Property[] getRootElements() {
         return rootElements;
     }

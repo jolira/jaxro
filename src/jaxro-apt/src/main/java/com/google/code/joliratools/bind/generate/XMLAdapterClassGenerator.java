@@ -150,18 +150,18 @@ public abstract class XMLAdapterClassGenerator {
         }
     }
 
-    protected void generate(final ArrayEntity entity, final PrintWriter writer) {
+    void generate(final ArrayEntity entity, final PrintWriter writer) {
         final Property[] properties = entity.getProperties();
         final Property property = properties[0];
 
         generateForLoop(writer, property);
     }
 
-    protected void generate(final BuiltInEntity entity, final PrintWriter writer) {
+    void generate(final BuiltInEntity entity, final PrintWriter writer) {
         writer.println("    writer.print(adapted);");
     }
 
-    protected void generate(final CollectionEntity entity,
+    void generate(final CollectionEntity entity,
             final PrintWriter writer) {
         final Property[] properties = entity.getProperties();
         final Property property = properties[0];
@@ -169,7 +169,7 @@ public abstract class XMLAdapterClassGenerator {
         generateForLoop(writer, property);
     }
 
-    protected void generate(final ComplexEntity entity, final PrintWriter writer) {
+    void generate(final ComplexEntity entity, final PrintWriter writer) {
         final Property[] properties = entity.getProperties();
         boolean isFirst = true;
 
@@ -275,7 +275,7 @@ public abstract class XMLAdapterClassGenerator {
             writer.println("    }");
             writer.println();
             writer
-                    .println("    java.util.Collection<Object> processed = new java.util.HashSet<Object>(_processed);");
+            .println("    java.util.Collection<Object> processed = new java.util.HashSet<Object>(_processed);");
             writer.println();
 
             generate(entity, writer);
@@ -366,12 +366,12 @@ public abstract class XMLAdapterClassGenerator {
 
                 if ("java.lang.String".equals(className)) {
                     writer
-                            .print("org.apache.commons.lang.StringEscapeUtils.escapeXml(");
+                    .print("org.apache.commons.lang.StringEscapeUtils.escapeXml(");
                     writer.print("_" + name);
                     writer.print(')');
                 } else if ("java.util.Date".equals(className)) {
                     writer
-                            .print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
+                    .print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
                     writer.print("format(");
                     writer.print("_" + name);
                     writer.print(')');
@@ -450,7 +450,7 @@ public abstract class XMLAdapterClassGenerator {
         writer.println("    }");
     }
 
-    protected void printCloseTag(final PrintWriter writer, final String name,
+    void printCloseTag(final PrintWriter writer, final String name,
             final int level) {
         printIntent(writer, level);
         writer.print("writer.print(\"</");
@@ -458,13 +458,13 @@ public abstract class XMLAdapterClassGenerator {
         writer.println(">\");");
     }
 
-    protected void printIntent(final PrintWriter writer, final int level) {
+    void printIntent(final PrintWriter writer, final int level) {
         for (int idx = 0; idx < level; idx++) {
             writer.print("  ");
         }
     }
 
-    protected void printOpenTag(final PrintWriter writer, final String name,
+    void printOpenTag(final PrintWriter writer, final String name,
             final int level) {
         printIntent(writer, level);
         writer.print("writer.print(\"<");

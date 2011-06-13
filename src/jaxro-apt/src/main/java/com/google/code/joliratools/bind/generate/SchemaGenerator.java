@@ -81,6 +81,14 @@ public abstract class SchemaGenerator {
         writer.println("</xs:schema>");
     }
 
+    /**
+     * Generate code for an {@link ArrayEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param type
+     *            the entity
+     */
     protected void generate(final PrintWriter writer, final ArrayEntity type) {
         final String name = type.getName();
 
@@ -97,6 +105,14 @@ public abstract class SchemaGenerator {
         writer.println("  </xs:complexType>");
     }
 
+    /**
+     * Generate code for an {@link CollectionEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param type
+     *            the entity
+     */
     protected void generate(final PrintWriter writer, final CollectionEntity type) {
         final String name = type.getName();
 
@@ -113,6 +129,14 @@ public abstract class SchemaGenerator {
         writer.println("  </xs:complexType>");
     }
 
+    /**
+     * Generate code for an {@link ComplexEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param entity
+     *            the entity
+     */
     protected void generate(final PrintWriter writer, final ComplexEntity entity) {
         final String name = entity.getName();
 
@@ -147,6 +171,14 @@ public abstract class SchemaGenerator {
         writer.println("  </xs:complexType>");
     }
 
+    /**
+     * Generate code for an {@link EnumEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param entity
+     *            the entity
+     */
     protected void generate(final PrintWriter writer, final EnumEntity entity) {
         final String name = entity.getName();
 

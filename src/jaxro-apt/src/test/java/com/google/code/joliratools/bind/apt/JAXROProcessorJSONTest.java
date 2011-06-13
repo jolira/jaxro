@@ -61,140 +61,16 @@ public class JAXROProcessorJSONTest {
     private static final String CUSTOMER_NAME = "com.google.code.joliratools.bind.demo.Customer";
     private static final String FAKECUSTOMER_NAME = "com.google.code.joliratools.bind.demo.FakeCustomer";
     private static final String EXECUTOR_NAME = "com.google.code.joliratools.bind.demo.JSONExecutor";
+    /**
+     * 
+     */
     public final static String ADAPTER_POSTFIX = "JSONAdapter";
-
-    private static void assertAccount(final XMLNode account) {
-        assertEquals("Account", account.getAttribute("name"));
-        assertEquals(XS, account.getNamespaceURI());
-        assertEquals("complexType", account.getName());
-
-        final XMLNode[] all = account.getChildren();
-
-        assertEquals(1, all.length);
-
-        assertEquals(XS, all[0].getNamespaceURI());
-        assertEquals("all", all[0].getName());
-
-        final XMLNode[] elements = all[0].getChildren();
-
-        assertEquals(6, elements.length);
-
-        for (final XMLNode element : elements) {
-            assertEquals("element", element.getName());
-            assertEquals(XS, element.getNamespaceURI());
-        }
-
-        assertEquals("notices", elements[0].getAttribute("name"));
-        assertEquals("StringCollection", elements[0].getAttribute("type"));
-        assertEquals("nicknames", elements[1].getAttribute("name"));
-        assertEquals("StringCollection", elements[1].getAttribute("type"));
-        assertEquals("accountHolders", elements[2].getAttribute("name"));
-        assertEquals("CustomerCollection", elements[2].getAttribute("type"));
-        assertEquals("balance", elements[3].getAttribute("name"));
-        assertEquals("xs:double", elements[3].getAttribute("type"));
-        assertEquals("number", elements[4].getAttribute("name"));
-        assertEquals("xs:string", elements[4].getAttribute("type"));
-        assertEquals("status", elements[5].getAttribute("name"));
-        assertEquals("AccountStatus", elements[5].getAttribute("type"));
-    }
-
-    private static void assertAccountArray(final XMLNode array) {
-        assertEquals("AccountArray", array.getAttribute("name"));
-        assertEquals(XS, array.getNamespaceURI());
-        assertEquals("complexType", array.getName());
-
-        final XMLNode[] all = array.getChildren();
-
-        assertEquals(1, all.length);
-
-        assertEquals(XS, all[0].getNamespaceURI());
-        assertEquals("sequence", all[0].getName());
-
-        final XMLNode[] elements = all[0].getChildren();
-
-        assertEquals(1, elements.length);
-
-        for (final XMLNode element : elements) {
-            assertEquals("element", element.getName());
-            assertEquals(XS, element.getNamespaceURI());
-        }
-
-        assertEquals("entry", elements[0].getAttribute("name"));
-        assertEquals("Account", elements[0].getAttribute("type"));
-        assertEquals("unbounded", elements[0].getAttribute("maxOccurs"));
-    }
-
-    private static void assertAccountStatus(final XMLNode status) {
-        assertEquals("AccountStatus", status.getAttribute("name"));
-        assertEquals(XS, status.getNamespaceURI());
-        assertEquals("simpleType", status.getName());
-
-        final XMLNode[] restriction = status.getChildren();
-
-        assertEquals(1, restriction.length);
-
-        assertEquals(XS, restriction[0].getNamespaceURI());
-        assertEquals("restriction", restriction[0].getName());
-        assertEquals("xs:string", restriction[0].getAttribute("base"));
-
-        final XMLNode[] elements = restriction[0].getChildren();
-
-        assertEquals(2, elements.length);
-        assertEquals("enumeration", elements[0].getName());
-        assertEquals(XS, elements[0].getNamespaceURI());
-        assertEquals("OPEN", elements[0].getAttribute("value"));
-        assertEquals("enumeration", elements[1].getName());
-        assertEquals(XS, elements[1].getNamespaceURI());
-        assertEquals("CLOSED", elements[1].getAttribute("value"));
-    }
-
-    private static void assertCustomer(final XMLNode customer) {
-        assertEquals("Customer", customer.getAttribute("name"));
-        assertEquals(XS, customer.getNamespaceURI());
-        assertEquals("complexType", customer.getName());
-
-        final XMLNode[] all = customer.getChildren();
-
-        assertEquals(1, all.length);
-
-        assertEquals(XS, all[0].getNamespaceURI());
-        assertEquals("all", all[0].getName());
-
-        final XMLNode[] elements = all[0].getChildren();
-
-        assertEquals(4, elements.length);
-
-        for (final XMLNode element : elements) {
-            assertEquals("element", element.getName());
-            assertEquals(XS, element.getNamespaceURI());
-        }
-
-        assertEquals("accounts", elements[0].getAttribute("name"));
-        assertEquals("AccountArray", elements[0].getAttribute("type"));
-        assertEquals("name", elements[1].getAttribute("name"));
-        assertEquals("xs:string", elements[1].getAttribute("type"));
-        assertEquals("happy", elements[2].getAttribute("name"));
-        assertEquals("xs:boolean", elements[2].getAttribute("type"));
-        assertEquals("dateOfBirth", elements[3].getAttribute("name"));
-        assertEquals("xs:dateTime", elements[3].getAttribute("type"));
-    }
-
-    private static void assertCustomerArrayElement(final XMLNode array) {
-        assertEquals("customer" + ArrayEntity.POST_FIX, array
-                .getAttribute("name"));
-        assertEquals(XS, array.getNamespaceURI());
-        assertEquals("element", array.getName());
-
-        final XMLNode[] children = array.getChildren();
-
-        assertEquals(0, children.length);
-    }
 
     private static void assertEverythingExeptSchema(
             final Compilation compilation, final String schemaDocument)
-            throws IOException, ClassNotFoundException, NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException,
-            ParserConfigurationException, SAXException {
+                    throws IOException, ClassNotFoundException, NoSuchMethodException,
+                    IllegalAccessException,
+                    InvocationTargetException {
         if (schemaDocument == null || schemaDocument.length() < 10) {
             fail("generation failed:\n" + schemaDocument);
         }
@@ -245,7 +121,7 @@ public class JAXROProcessorJSONTest {
         final String instanceDocument = (String) executeMethod.invoke(null);
 
         System.out.println(instanceDocument);
-        JSONTokener tokener = new JSONTokener(instanceDocument);
+        final JSONTokener tokener = new JSONTokener(instanceDocument);
         assertNotNull(tokener);
         // assertSchemaInstance(instanceDocument);
     }
@@ -261,38 +137,6 @@ public class JAXROProcessorJSONTest {
         if (content.length() < 10) {
             fail("not a valid class: " + content);
         }
-    }
-
-    private static void assertResult(final Compilation compilation,
-            final String schemaDocument) throws IllegalArgumentException,
-            Exception {
-        assertEverythingExeptSchema(compilation, schemaDocument);
-        assertSchema(schemaDocument);
-    }
-
-    private static void assertSchema(final String schemaDocument)
-            throws ParserConfigurationException, SAXException, IOException {
-        final XMLNode schema = parse(schemaDocument);
-
-        assertEquals(XS, schema.getNamespaceURI());
-        assertEquals("schema", schema.getName());
-
-        final XMLNode[] types = schema.getChildren();
-
-        assertEquals(9, types.length);
-
-        assertAccount(types[0]);
-        assertAccountArray(types[1]);
-        assertAccountStatus(types[2]);
-        assertCustomer(types[3]);
-        assertCustomerArrayElement(types[8]);
-    }
-
-    private static void assertSchemaInstance(final String instanceDocument)
-            throws ParserConfigurationException, SAXException, IOException {
-        final XMLNode instance = parse(instanceDocument);
-
-        assertNotNull(instance);
     }
 
     private static void load(final String classname,
@@ -519,7 +363,7 @@ public class JAXROProcessorJSONTest {
         assertEquals(diagnostics.toString(), 2, diagnostics.size());
 
         compilation
-                .getGeneratedResource("com/google/code/joliratools/bind/demo/jaxro.xsd");
+        .getGeneratedResource("com/google/code/joliratools/bind/demo/jaxro.xsd");
     }
 
     /**

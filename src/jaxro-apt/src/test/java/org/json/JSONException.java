@@ -23,6 +23,9 @@ public class JSONException extends Exception {
         super(message);
     }
 
+    /**
+     * @param t
+     */
     public JSONException(final Throwable t) {
         super(t.getMessage());
         cause = t;

@@ -151,6 +151,14 @@ public abstract class JSONAdapterClassGenerator {
         }
     }
 
+    /**
+     * Generate code for an {@link ArrayEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param entity
+     *            the entity
+     */
     protected void generate(final ArrayEntity entity, final PrintWriter writer) {
         final Property[] properties = entity.getProperties();
         final Property property = properties[0];
@@ -158,10 +166,26 @@ public abstract class JSONAdapterClassGenerator {
         generateForLoop(writer, property);
     }
 
+    /**
+     * Generate code for an {@link BuiltInEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param entity
+     *            the entity
+     */
     protected void generate(final BuiltInEntity entity, final PrintWriter writer) {
         writer.println("    writer.print(adapted);");
     }
 
+    /**
+     * Generate code for an {@link CollectionEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param entity
+     *            the entity
+     */
     protected void generate(final CollectionEntity entity,
             final PrintWriter writer) {
         final Property[] properties = entity.getProperties();
@@ -170,6 +194,14 @@ public abstract class JSONAdapterClassGenerator {
         generateForLoop(writer, property);
     }
 
+    /**
+     * Generate code for an {@link ComplexEntity}
+     * 
+     * @param writer
+     *            the writer
+     * @param entity
+     *            the entity
+     */
     protected void generate(final ComplexEntity entity, final PrintWriter writer) {
         writer.println("    writer.print(\"{\");");
         final Property[] properties = entity.getProperties();
@@ -237,7 +269,7 @@ public abstract class JSONAdapterClassGenerator {
             writer.print("public class ");
             writer.print(simpleName);
             writer
-                    .print(" implements com.google.code.joliratools.bind.JSONAdapter ");
+            .print(" implements com.google.code.joliratools.bind.JSONAdapter ");
             writer.println("{");
             writer.print("  private final ");
             writer.print(clazzName);
@@ -272,7 +304,7 @@ public abstract class JSONAdapterClassGenerator {
             writer.println("    }");
             writer.println();
             writer
-                    .println("    java.util.Collection<Object> processed = new java.util.HashSet<Object>(_processed);");
+            .println("    java.util.Collection<Object> processed = new java.util.HashSet<Object>(_processed);");
             writer.println();
 
             writer.println("boolean firstProp = true;");
@@ -339,13 +371,13 @@ public abstract class JSONAdapterClassGenerator {
         type.visit(new EntityVisitor<Void>() {
 
             private boolean isJSONResultInQuote(final String className) {
-                return (!("boolean".equals(className)
+                return !("boolean".equals(className)
                         || "double".equals(className)
                         || "int".equals(className) || "long".equals(className)
                         || "java.lang.Boolean".equals(className)
                         || "java.lang.Integer".equals(className)
                         || "java.lang.Double".equals(className) || "java.lang.Long"
-                        .equals(className)));
+                        .equals(className));
             }
 
             @Override
@@ -377,14 +409,14 @@ public abstract class JSONAdapterClassGenerator {
                 if ("java.lang.String".equals(className)) {
                     writer.print("writer.print(");
                     writer
-                            .print("org.apache.commons.lang.StringEscapeUtils.escapeJava(");
+                    .print("org.apache.commons.lang.StringEscapeUtils.escapeJava(");
                     writer.print("_" + name);
                     writer.print(')');
                     writer.println(");");
                 } else if ("java.util.Date".equals(className)) {
                     writer.print("writer.print(");
                     writer
-                            .print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
+                    .print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
                     writer.print("format(");
                     writer.print("_" + name);
                     writer.print(')');
@@ -510,12 +542,12 @@ public abstract class JSONAdapterClassGenerator {
 
                 if ("java.lang.String".equals(className)) {
                     writer
-                            .print("org.apache.commons.lang.StringEscapeUtils.escapeJava(");
+                    .print("org.apache.commons.lang.StringEscapeUtils.escapeJava(");
                     writer.print("_" + name);
                     writer.print(')');
                 } else if ("java.util.Date".equals(className)) {
                     writer
-                            .print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
+                    .print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
                     writer.print("format(");
                     writer.print("_" + name);
                     writer.print(')');
@@ -577,29 +609,24 @@ public abstract class JSONAdapterClassGenerator {
         });
     }
 
-    protected void printCloseTag(final PrintWriter writer, final String name,
+    void printCloseTag(final PrintWriter writer, final String name,
             final int level) {
-
+        // nothing
     }
 
-    protected void printCloseTagLoop(final PrintWriter writer,
+    private void printCloseTagLoop(final PrintWriter writer,
             final String name, final int level) {
         printIntent(writer, level);
         writer.println("writer.print(\"]\");");
     }
 
-    protected void printIntent(final PrintWriter writer, final int level) {
+    void printIntent(final PrintWriter writer, final int level) {
         for (int idx = 0; idx < level; idx++) {
             writer.print("  ");
         }
     }
 
-    protected void printNull(final PrintWriter writer, final int level) {
-        printIntent(writer, level);
-        writer.println("  writer.print(\"null\");");
-    }
-
-    protected void printOpenTag(final PrintWriter writer, final String name,
+    void printOpenTag(final PrintWriter writer, final String name,
             final int level) {
         printIntent(writer, level);
         writer.println("if (!firstProp) {");
@@ -617,13 +644,13 @@ public abstract class JSONAdapterClassGenerator {
         writer.println("\\\":\");");
     }
 
-    protected void printOpenTagLoop(final PrintWriter writer,
+    void printOpenTagLoop(final PrintWriter writer,
             final String name, final int level) {
         printIntent(writer, level);
         writer.println("writer.print(\"[\");");
     }
 
-    protected void printSingleQuote(final PrintWriter writer, final int level) {
+    void printSingleQuote(final PrintWriter writer, final int level) {
         printIntent(writer, level);
         writer.println("  writer.print(\"\\\"\");");
     }

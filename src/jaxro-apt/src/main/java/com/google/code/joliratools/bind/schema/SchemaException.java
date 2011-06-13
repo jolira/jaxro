@@ -10,9 +10,21 @@
  */
 package com.google.code.joliratools.bind.schema;
 
+/**
+ * Throw when there are problems with the schema.
+ * 
+ * @author jfk
+ * 
+ */
 public class SchemaException extends RuntimeException {
     private static final long serialVersionUID = 4965287145189927959L;
 
+    /**
+     * Create a new exception.
+     * 
+     * @param msg
+     *            the message
+     */
     public SchemaException(final String msg) {
         super(msg);
     }

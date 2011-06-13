@@ -10,14 +10,56 @@
  */
 package com.google.code.joliratools.bind.schema;
 
+/**
+ * A visitor for entities.
+ * 
+ * @see "http://en.wikipedia.org/wiki/Visitor_pattern"
+ * @author jfk
+ * @param <T>
+ */
 public interface EntityVisitor<T> {
+    /**
+     * Called is the visited entity is an {@link ArrayEntity}.
+     * 
+     * @param entity
+     *            the entity to visit
+     * @return the result of the visit.
+     */
     T visit(ArrayEntity entity);
 
+    /**
+     * Called is the visited entity is an {@link BuiltInEntity}.
+     * 
+     * @param entity
+     *            the entity to visit
+     * @return the result of the visit.
+     */
     T visit(BuiltInEntity entity);
 
+    /**
+     * Called is the visited entity is an {@link CollectionEntity}.
+     * 
+     * @param entity
+     *            the entity to visit
+     * @return the result of the visit.
+     */
     T visit(CollectionEntity entity);
 
+    /**
+     * Called is the visited entity is an {@link ComplexEntity}.
+     * 
+     * @param entity
+     *            the entity to visit
+     * @return the result of the visit.
+     */
     T visit(ComplexEntity entity);
 
+    /**
+     * Called is the visited entity is an {@link EnumEntity}.
+     * 
+     * @param entity
+     *            the entity to visit
+     * @return the result of the visit.
+     */
     T visit(EnumEntity entity);
 }

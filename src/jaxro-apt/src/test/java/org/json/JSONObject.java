@@ -88,6 +88,7 @@ import java.util.TreeSet;
  * @author JSON.org
  * @version 2010-05-17
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class JSONObject {
 
     /**
@@ -130,6 +131,11 @@ public class JSONObject {
         public String toString() {
             return "null";
         }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode();
+        }
     }
 
     /**
@@ -162,6 +168,8 @@ public class JSONObject {
     /**
      * Get an array of field names from a JSONObject.
      * 
+     * @param jo
+     * 
      * @return An array of field names, or null if there are no names.
      */
     public static String[] getNames(final JSONObject jo) {
@@ -181,6 +189,8 @@ public class JSONObject {
 
     /**
      * Get an array of field names from an Object.
+     * 
+     * @param object
      * 
      * @return An array of field names, or null if there are no names.
      */
@@ -285,7 +295,7 @@ public class JSONObject {
                 break;
             default:
                 if (c < ' ' || c >= '\u0080' && c < '\u00a0' || c >= '\u2000'
-                        && c < '\u2100') {
+                && c < '\u2100') {
                     t = "000" + Integer.toHexString(c);
                     sb.append("\\u" + t.substring(t.length() - 4));
                 } else {
@@ -340,14 +350,12 @@ public class JSONObject {
                 if (s.indexOf('.') > -1 || s.indexOf('e') > -1
                         || s.indexOf('E') > -1) {
                     return Double.valueOf(s);
-                } else {
-                    final Long myLong = new Long(s);
-                    if (myLong.longValue() == myLong.intValue()) {
-                        return new Integer(myLong.intValue());
-                    } else {
-                        return myLong;
-                    }
                 }
+                final Long myLong = new Long(s);
+                if (myLong.longValue() == myLong.intValue()) {
+                    return new Integer(myLong.intValue());
+                }
+                return myLong;
             } catch (final Exception ignore) {
             }
         }
@@ -534,12 +542,12 @@ public class JSONObject {
             final String objectPackageName = objectPackage != null ? objectPackage
                     .getName()
                     : "";
-            if (objectPackageName.startsWith("java.")
-                    || objectPackageName.startsWith("javax.")
-                    || object.getClass().getClassLoader() == null) {
-                return object.toString();
-            }
-            return new JSONObject(object);
+                    if (objectPackageName.startsWith("java.")
+                            || objectPackageName.startsWith("javax.")
+                            || object.getClass().getClassLoader() == null) {
+                        return object.toString();
+                    }
+                    return new JSONObject(object);
         } catch (final Exception exception) {
             return null;
         }
@@ -556,6 +564,7 @@ public class JSONObject {
      * <code>JSONObject.NULL.equals(null)</code> returns <code>true</code>.
      * <code>JSONObject.NULL.toString()</code> returns <code>"null"</code>.
      */
+    @SuppressWarnings("synthetic-access")
     public static final Object NULL = new Null();
 
     /**
@@ -574,10 +583,6 @@ public class JSONObject {
      *            A JSONObject.
      * @param names
      *            An array of strings.
-     * @throws JSONException
-     * @exception JSONException
-     *                If a value is a non-finite number or if a name is
-     *                duplicated.
      */
     public JSONObject(final JSONObject jo, final String[] names) {
         this();
@@ -658,7 +663,6 @@ public class JSONObject {
      * @param map
      *            A map object that can be used to initialize the contents of
      *            the JSONObject.
-     * @throws JSONException
      */
     public JSONObject(final Map map) {
         this.map = new HashMap();
@@ -1612,6 +1616,8 @@ public class JSONObject {
      * compactness, no whitespace is added.
      * <p>
      * Warning: This method assumes that the data structure is acyclical.
+     * 
+     * @param writer
      * 
      * @return The writer.
      * @throws JSONException

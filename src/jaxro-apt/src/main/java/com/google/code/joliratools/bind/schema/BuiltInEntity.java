@@ -93,6 +93,17 @@ public final class BuiltInEntity extends Entity {
         super.compile(clazz, resolver);
     }
 
+    /**
+     * Indicates if this an object type such as {@link Long}, {@link Integer},
+     * {@link Double} or {@link String} rather than a {@literal long},
+     * {@literal int}, or {@literal double}. This is important for instance when
+     * checking if the type is {@literal null} or not. Non object types such as
+     * {@literal long} cannot be checked for nullness.
+     * 
+     * @return {@literal true} to indicate that the entity represents an object
+     *         type such as {@link Long}, {@link Integer}, {@link Double} or
+     *         {@link String}.
+     */
     public boolean isObject() {
         return isObject;
     }

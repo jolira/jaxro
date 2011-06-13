@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import com.google.code.joliratools.bind.model.Class;
 
 /**
+ * A queue for classes that have to be compiled.
  * 
  * @author Joachim Kainz
  * 
@@ -25,6 +26,13 @@ public final class CompileQueue {
     private final Collection<String> names = new HashSet<String>();
     private final LinkedList<Class> pending = new LinkedList<Class>();
 
+    /**
+     * Add a new class to be compiled.
+     * 
+     * @param clazz
+     * @return {@literal true} to indicate that the class was not part of the
+     *         queue yet.
+     */
     public boolean add(final Class clazz) {
         final String name = clazz.getName();
 
@@ -39,6 +47,9 @@ public final class CompileQueue {
         return true;
     }
 
+    /**
+     * @return the next class to be compiled.
+     */
     public Class next() {
         if (pending.isEmpty()) {
             return null;

@@ -12,6 +12,20 @@ package com.google.code.joliratools.bind.schema;
 
 import com.google.code.joliratools.bind.model.Class;
 
+/**
+ * Allows messaging of compile problems.
+ * 
+ * @author jfk
+ * 
+ */
 public interface Messager {
+    /**
+     * Warn the user about a problem with the given class.
+     * 
+     * @param clazz
+     *            the class
+     * @param message
+     *            the warning message
+     */
     void warning(Class clazz, String message);
 }

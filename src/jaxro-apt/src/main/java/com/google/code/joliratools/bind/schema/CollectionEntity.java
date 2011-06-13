@@ -15,7 +15,17 @@ import java.util.Collection;
 import com.google.code.joliratools.bind.model.Class;
 import com.google.code.joliratools.bind.reflect.ClassAdapter;
 
+/**
+ * Represent a collection such as {@link Collection}.
+ * 
+ * @author jfk
+ * @since 1.0
+ * 
+ */
 public final class CollectionEntity extends Entity {
+    /**
+     * The postfix to be used to name collection entities.
+     */
     public static final String POST_FIX = "Collection";
     private Entity typeArgument;
 
@@ -54,6 +64,11 @@ public final class CollectionEntity extends Entity {
         }, resolver);
     }
 
+    /**
+     * @return the properties of the collection.
+     * @throws IllegalStateException
+     *             thrown when called before the entity has been compiled.
+     */
     public Property[] getProperties() {
         if (!isCompiled()) {
             throw new IllegalStateException();
@@ -62,6 +77,11 @@ public final class CollectionEntity extends Entity {
         return new Property[] { new Property("entry", typeArgument, "unbounded") };
     }
 
+    /**
+     * @return the type argument
+     * @throws IllegalStateException
+     *             thrown when called before the entity has been compiled.
+     */
     public Entity getTypeArgument() {
         if (!isCompiled()) {
             throw new IllegalStateException();

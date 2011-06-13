@@ -12,7 +12,16 @@ package com.google.code.joliratools.bind.schema;
 
 import com.google.code.joliratools.bind.model.Class;
 
+/**
+ * @author jfk
+ * 
+ *         Represents an array entry.
+ * 
+ */
 public final class ArrayEntity extends Entity {
+    /**
+     * The postfix to be used to identify Arrays.
+     */
     public static final String POST_FIX = "Array";
     private Entity componentType;
 
@@ -29,6 +38,11 @@ public final class ArrayEntity extends Entity {
         componentType = resolver.resolve(_componentType);
     }
 
+    /**
+     * @return the component type of the array.
+     * @throws IllegalStateException
+     *             thrown when called before the entity has been compiled.
+     */
     public Entity getComponentEntity() {
         if (!isCompiled()) {
             throw new IllegalStateException();
@@ -37,6 +51,11 @@ public final class ArrayEntity extends Entity {
         return componentType;
     }
 
+    /**
+     * @return the properties of the array.
+     * @throws IllegalStateException
+     *             thrown when called before the entity has been compiled.
+     */
     public Property[] getProperties() {
         if (!isCompiled()) {
             throw new IllegalStateException();

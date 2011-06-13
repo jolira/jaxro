@@ -100,6 +100,8 @@ public class JSONTokener {
      * Back up one character. This provides a sort of lookahead capability, so
      * that you can test for a digit or letter before attempting to parse the
      * next number or identifier.
+     * 
+     * @throws JSONException
      */
     public void back() throws JSONException {
         if (usePrevious || index <= 0) {
@@ -111,6 +113,9 @@ public class JSONTokener {
         eof = false;
     }
 
+    /**
+     * @return something
+     */
     public boolean end() {
         return eof && !usePrevious;
     }
@@ -120,6 +125,7 @@ public class JSONTokener {
      * consume.
      * 
      * @return true if not yet at the end of the source.
+     * @throws JSONException
      */
     public boolean more() throws JSONException {
         next();
@@ -134,6 +140,7 @@ public class JSONTokener {
      * Get the next character in the source string.
      * 
      * @return The next character, or 0 if past the end of the source string.
+     * @throws JSONException
      */
     public char next() throws JSONException {
         int c;
@@ -297,6 +304,7 @@ public class JSONTokener {
      * @param d
      *            A delimiter character.
      * @return A string.
+     * @throws JSONException
      */
     public String nextTo(final char d) throws JSONException {
         final StringBuffer sb = new StringBuffer();
@@ -319,6 +327,7 @@ public class JSONTokener {
      * @param delimiters
      *            A set of delimiter characters.
      * @return A string, trimmed.
+     * @throws JSONException
      */
     public String nextTo(final String delimiters) throws JSONException {
         char c;
@@ -392,6 +401,7 @@ public class JSONTokener {
      *            A character to skip to.
      * @return The requested character, or zero if the requested character is
      *         not found.
+     * @throws JSONException
      */
     public char skipTo(final char to) throws JSONException {
         char c;

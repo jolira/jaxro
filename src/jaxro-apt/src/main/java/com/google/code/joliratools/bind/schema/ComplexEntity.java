@@ -20,6 +20,12 @@ import com.google.code.joliratools.bind.model.Annotation;
 import com.google.code.joliratools.bind.model.Class;
 import com.google.code.joliratools.bind.model.Method;
 
+/**
+ * Represents classes.
+ * 
+ * @author jfk
+ * 
+ */
 public final class ComplexEntity extends Entity {
     private static Property findElement(final Property[] elems,
             final String property) {
@@ -119,6 +125,11 @@ public final class ComplexEntity extends Entity {
         return props.toArray(new Property[size]);
     }
 
+    /**
+     * @return the properties of the class
+     * @throws IllegalStateException
+     *             thrown when called before the entity has been compiled.
+     */
     public Property[] getProperties() {
         if (!isCompiled()) {
             throw new IllegalStateException();
@@ -127,6 +138,11 @@ public final class ComplexEntity extends Entity {
         return properties;
     }
 
+    /**
+     * @return the super-class and interfaces.
+     * @throws IllegalStateException
+     *             thrown when called before the entity has been compiled.
+     */
     public Entity[] getSuperEntities() {
         if (!isCompiled()) {
             throw new IllegalStateException();
