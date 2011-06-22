@@ -50,19 +50,21 @@ Maven
 
 This component is available in Maven Central. Simply add the following lines of configuration to our pom.xml:
 
-``dependencies>
-  <dependency>
-    <groupId>com.jolira</groupId>
-    <artifactId>jaxro-core</artifactId>
-    <version>1.3.2</version>
-  </dependency>
-  <dependency>
-    <groupId>com.jolira</groupId>
-    <artifactId>jaxro-apt</artifactId>
-    <version>1.3.2</version>
-    <scope>compile</scope>
-  </dependency>
-</dependencies>``
+<pre>
+  <dependencies>
+    <dependency>
+      <groupId>com.jolira</groupId>
+      <artifactId>jaxro-core</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jolira</groupId>
+      <artifactId>jaxro-apt</artifactId>
+      <version>1.3.2</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>``
+</pre>
 
 Support
 -------
