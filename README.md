@@ -50,7 +50,7 @@ Maven
 
 This component is available in Maven Central. Simply add the following lines of configuration to our pom.xml:
 
-<pre>``
+``
   <dependencies>
     <dependency>
       <groupId>com.jolira</groupId>
@@ -64,7 +64,7 @@ This component is available in Maven Central. Simply add the following lines of 
       <scope>compile</scope>
     </dependency>
   </dependencies>``
-``</pre>
+``
 
 Support
 -------
