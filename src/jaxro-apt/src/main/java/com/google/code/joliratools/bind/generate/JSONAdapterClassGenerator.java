@@ -115,15 +115,21 @@ public abstract class JSONAdapterClassGenerator {
     }
 
     private final Schema schema;
+    private final boolean generateStringsOnly;
 
     /**
      * Create a new generator.
      * 
      * @param schema
      *            the schema to use for the generator
+     * @param generateStringsOnly
+     *            {@literal true} to support a backwards compatible mode for
+     *            applications that need all built-in types to be output as
+     *            strings.
      */
-    public JSONAdapterClassGenerator(final Schema schema) {
+    public JSONAdapterClassGenerator(final Schema schema, final boolean generateStringsOnly) {
         this.schema = schema;
+        this.generateStringsOnly = generateStringsOnly;
     }
 
     /**
@@ -141,7 +147,6 @@ public abstract class JSONAdapterClassGenerator {
      * Create the Java Source for all the adapters required by the schema.
      */
     public void generate() {
-
         final Entity[] entities = schema.getEntities();
         final Property[] roots = schema.getRootElements();
 
@@ -298,8 +303,8 @@ public abstract class JSONAdapterClassGenerator {
             writer.println("    if (!_processed.add(adapted)) {");
             writer.println("      writer.print(\"null\");");
             writer.println("      return;");
-            writer.println("    } else ");
-            writer.print("if (adapted==null) {");
+            writer.println("    }");
+            writer.println("    else if (adapted==null) {");
             writer.println("        return;");
             writer.println("    }");
             writer.println();
@@ -323,7 +328,7 @@ public abstract class JSONAdapterClassGenerator {
 
             printIntent(writer, 2);
             writer.println("toJSON(writer, processed);");
-            printIntent(writer, 2);
+            printIntent(writer, 1);
             writer.println("}");
             // }
 
@@ -367,17 +372,18 @@ public abstract class JSONAdapterClassGenerator {
 
     private void generate(final PrintWriter writer, final String name,
             final Entity type, final int baseLevel) {
+        final boolean stringsOnly = generateStringsOnly;
 
         type.visit(new EntityVisitor<Void>() {
-
             private boolean isJSONResultInQuote(final String className) {
-                return !("boolean".equals(className)
-                        || "double".equals(className)
-                        || "int".equals(className) || "long".equals(className)
-                        || "java.lang.Boolean".equals(className)
-                        || "java.lang.Integer".equals(className)
-                        || "java.lang.Double".equals(className) || "java.lang.Long"
-                        .equals(className));
+                if (stringsOnly) {
+                    return true;
+                }
+
+                return !("boolean".equals(className) || "double".equals(className) || "float".equals(className)
+                        || "int".equals(className) || "long".equals(className) || "java.lang.Boolean".equals(className)
+                        || "java.lang.Integer".equals(className) || "java.lang.Double".equals(className)
+                        || "java.lang.Float".equals(className) || "java.lang.Long".equals(className));
             }
 
             @Override
@@ -392,20 +398,24 @@ public abstract class JSONAdapterClassGenerator {
 
                 if (isObject) {
                     printIntent(writer, baseLevel);
+
                     writer.print("if (null != ");
                     writer.print("_" + name);
                     writer.println(") {");
                 }
 
-                printOpenTag(writer, name, baseLevel);
                 final int level = baseLevel + (isObject ? 1 : 0);
                 final String className = _entity.getClassName();
-
                 final boolean isJSONResultInQuote = isJSONResultInQuote(className);
+
+                printOpenTag(writer, name, level);
+
                 if (isJSONResultInQuote) {
-                    printSingleQuote(writer, baseLevel);
+                    printSingleQuote(writer, level);
                 }
+
                 printIntent(writer, level);
+
                 if ("java.lang.String".equals(className)) {
                     writer.print("writer.print(");
                     writer
@@ -415,8 +425,7 @@ public abstract class JSONAdapterClassGenerator {
                     writer.println(");");
                 } else if ("java.util.Date".equals(className)) {
                     writer.print("writer.print(");
-                    writer
-                    .print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
+                    writer.print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
                     writer.print("format(");
                     writer.print("_" + name);
                     writer.print(')');
@@ -427,7 +436,7 @@ public abstract class JSONAdapterClassGenerator {
                     writer.println(");");
                 }
                 if (isJSONResultInQuote) {
-                    printSingleQuote(writer, baseLevel);
+                    printSingleQuote(writer, level);
                 }
 
                 if (isObject) {
@@ -464,7 +473,7 @@ public abstract class JSONAdapterClassGenerator {
 
                 printIntent(writer, baseLevel + 1);
                 writer.print(_name);
-                writer.println(" adapter = new ");
+                writer.print(" adapter = new ");
                 writer.print(_name);
                 writer.print("(");
                 writer.print("_" + name);

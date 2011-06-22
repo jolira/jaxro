@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,32 +24,6 @@ public final class BuiltInEntity extends Entity {
 
         entity.compile(_class, null);
         builtins.put(name, entity);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (isObject ? 1231 : 1237);
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof BuiltInEntity)) {
-            return false;
-        }
-        final BuiltInEntity other = (BuiltInEntity) obj;
-        if (isObject != other.isObject) {
-            return false;
-        }
-        return true;
     }
 
     static Map<String, Entity> getBuiltIns() {
@@ -75,6 +51,8 @@ public final class BuiltInEntity extends Entity {
         add(builtins, BigDecimal.class, new BuiltInEntity("xs:decimal", true));
         add(builtins, BigInteger.class, new BuiltInEntity("xs:integer", true));
         add(builtins, Date.class, new BuiltInEntity("xs:dateTime", true));
+        add(builtins, Calendar.class, new BuiltInEntity("xs:dateTime", true));
+        add(builtins, GregorianCalendar.class, new BuiltInEntity("xs:dateTime", true));
 
         return builtins;
     }
@@ -87,10 +65,36 @@ public final class BuiltInEntity extends Entity {
         this.isObject = isObject;
     }
 
-
     @Override
     void compile(final Class clazz, final SchemaResolver resolver) {
         super.compile(clazz, resolver);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof BuiltInEntity)) {
+            return false;
+        }
+        final BuiltInEntity other = (BuiltInEntity) obj;
+        if (isObject != other.isObject) {
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + (isObject ? 1231 : 1237);
+        return result;
     }
 
     /**

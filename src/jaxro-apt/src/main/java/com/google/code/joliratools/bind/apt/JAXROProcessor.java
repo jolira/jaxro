@@ -64,7 +64,7 @@ import com.google.code.joliratools.bind.schema.Schema;
 @SupportedSourceVersion(RELEASE_6)
 @SupportedAnnotationTypes("com.google.code.joliratools.bind.annotation.*")
 @SupportedOptions( { "dense", "schema", "adapters", "jaxroproc",
-        "jaxrodisabled" })
+    "jaxrodisabled", "jsonstringonly" })
 public class JAXROProcessor extends AbstractProcessor {
     private static final Logger LOG = Logger.getLogger(JAXROProcessor.class
             .getName());
@@ -91,7 +91,7 @@ public class JAXROProcessor extends AbstractProcessor {
     }
 
     private static void makeParentDirs(final File _file) throws IOException,
-            Error {
+    Error {
         final File file = _file.getCanonicalFile();
         final File parentFile = file.getParentFile();
 
@@ -173,8 +173,9 @@ public class JAXROProcessor extends AbstractProcessor {
 
         generator.generate();
 
-        final JSONAdapterClassGenerator generatorJSON = new JSONAdapterClassGenerator(
-                schema) {
+        final String jsonstringonly = getOption("jsonstringonly");
+        final boolean stringOnly = jsonstringonly != null && Boolean.parseBoolean(jsonstringonly);
+        final JSONAdapterClassGenerator generatorJSON = new JSONAdapterClassGenerator(schema, stringOnly) {
             @Override
             protected PrintWriter createSourceFile(final String classname) {
                 return JAXROProcessor.this.createSourceFile(classname);
@@ -182,7 +183,6 @@ public class JAXROProcessor extends AbstractProcessor {
         };
 
         generatorJSON.generate();
-
     }
 
     private void generateSchema(final Schema schema) {
