@@ -48,22 +48,21 @@ The following compiler switches can be used to customize the behaviour of JAXRO:
 Maven
 -----
 
-This component is available in Maven-Central. Simply add the following lines of configuration to our pom.xml:
+This component is available in Maven Central. Simply add the following lines of configuration to our pom.xml:
 
-`&lt;dependencies&gt;
-  &lt;dependency&gt;
-    &lt;groupId&gt;com.jolira&lt;/groupId&gt;
-    &lt;artifactId&gt;jaxro-core&lt;/artifactId&gt;
-    &lt;version&gt;1.3.2&lt;/version&gt;
-  &lt;/dependency&gt;
-  &lt;dependency&gt;
-    &lt;groupId&gt;com.jolira&lt;/groupId&gt;
-    &lt;artifactId&gt;jaxro-apt&lt;/artifactId&gt;
-    &lt;version&gt;1.3.2&lt;/version&gt;
-    &lt;scope&gt;compile&lt;/scope&gt;
-  &lt;/dependency&gt;
-&lt;/dependencies&gt;
-</pre>`
+``dependencies>
+  <dependency>
+    <groupId>com.jolira</groupId>
+    <artifactId>jaxro-core</artifactId>
+    <version>1.3.2</version>
+  </dependency>
+  <dependency>
+    <groupId>com.jolira</groupId>
+    <artifactId>jaxro-apt</artifactId>
+    <version>1.3.2</version>
+    <scope>compile</scope>
+  </dependency>
+</dependencies>``
 
 Support
 -------
