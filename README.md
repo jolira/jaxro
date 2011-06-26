@@ -40,7 +40,7 @@ The following compiler switches can be used to customize the behaviour of JAXRO:
   <tr>
     <td style="border: 1px solid #ccc; padding: 5px;"><tt>-Ajaxroproc=</tt><i>proc</i></td><td style="border: 1px solid #ccc; padding: 5px;">Controls the execution of this component. Possible values are <tt>&quot;none&quot;</tt> (no generation is executed), <tt>&quot;schemaOnly&quot;</tt> (only the schema is generated), <tt>&quot;adaptersOnly&quot;</tt> (only adapters are generated), or <tt>&quot;complete&quot;</tt> (this is the default; schema and adapters are generated) </td>
   </tr>
-  <tr><td style="border: 1px solid #ccc; padding: 5px;"><tt>-A=jaxrodisabled=</tt>{<tt>true</tt>|<tt>false</tt>}</td>
+  <tr><td style="border: 1px solid #ccc; padding: 5px;"><tt>-Ajaxrodisabled=</tt>{<tt>true</tt>|<tt>false</tt>}</td>
     <td style="border: 1px solid #ccc; padding: 5px;">If set to <tt>true</tt> no processing will be performed (same as <tt>-Ajaxroproc=none</tt>)</td>
   </tr>
 </table>
