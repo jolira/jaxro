@@ -375,6 +375,11 @@ public abstract class XMLAdapterClassGenerator {
                     writer.print("format(");
                     writer.print("_" + name);
                     writer.print(')');
+                } else if ("java.util.Calendar".equals(className) || "java.util.GregorianCalendar".equals(className)) {
+                    writer.print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
+                    writer.print("format(");
+                    writer.print("_" + name);
+                    writer.println(".getTime())");
                 } else {
                     writer.print("_" + name);
                 }

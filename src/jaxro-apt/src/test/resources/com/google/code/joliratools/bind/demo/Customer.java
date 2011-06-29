@@ -31,4 +31,8 @@ public interface Customer {
     public long getLongPrimitive();
     
     public Long getLong();
+    
+    Calendar getLastSeen();
+    
+    GregorianCalendar getLastPurchase();
 }

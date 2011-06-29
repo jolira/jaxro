@@ -19,6 +19,14 @@ public class FakeCustomer implements Customer {
         return accounts;
     }
 
+    public Calendar getLastSeen() {
+        return new GregorianCalendar(1906, 6, 2, 0, 0, 0);
+    }
+    
+    public GregorianCalendar getLastPurchase() {
+        return new GregorianCalendar(2011, 8, 10, 0, 0, 0);
+    }
+    
     public Date getDateOfBirth() {
         Calendar cal = new GregorianCalendar(1872, 7, 9, 0, 0, 0);
 

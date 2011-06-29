@@ -430,6 +430,12 @@ public abstract class JSONAdapterClassGenerator {
                     writer.print("_" + name);
                     writer.print(')');
                     writer.println(");");
+                } else if ("java.util.Calendar".equals(className) || "java.util.GregorianCalendar".equals(className)) {
+                    writer.print("writer.print(");
+                    writer.print("new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").");
+                    writer.print("format(");
+                    writer.print("_" + name);
+                    writer.println(".getTime()));");
                 } else {
                     writer.print("writer.print(");
                     writer.print("_" + name);

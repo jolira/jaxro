@@ -163,7 +163,7 @@ public class JAXROProcessorTest {
 
         final XMLNode[] elements = all[0].getChildren();
 
-        assertEquals(12, elements.length);
+        assertEquals(14, elements.length);
 
         for (final XMLNode element : elements) {
             assertEquals("element", element.getName());
@@ -193,9 +193,9 @@ public class JAXROProcessorTest {
 
     private static void assertEverythingExeptSchema(
             final Compilation compilation, final String schemaDocument)
-            throws IOException, ClassNotFoundException, NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException,
-            ParserConfigurationException, SAXException {
+                    throws IOException, ClassNotFoundException, NoSuchMethodException,
+                    IllegalAccessException, InvocationTargetException,
+                    ParserConfigurationException, SAXException {
         if (schemaDocument == null || schemaDocument.length() < 10) {
             fail("generation failed:\n" + schemaDocument);
         }
@@ -519,7 +519,7 @@ public class JAXROProcessorTest {
         assertEquals(diagnostics.toString(), 2, diagnostics.size());
 
         compilation
-                .getGeneratedResource("com/google/code/joliratools/bind/demo/jaxro.xsd");
+        .getGeneratedResource("com/google/code/joliratools/bind/demo/jaxro.xsd");
     }
 
     /**
