@@ -1,7 +1,7 @@
 JAXRO
 =====
 
-JAXB is very powerful, but does not work easily with legacy application. This is a solution that allows enterprise users to add JAXB type annotations to existing applications and externalize them using XML and JSON.
+JAXB is very powerful, but does work easily with legacy application. This is a solution that allows enterprise users to add JAXB type annotations to existing applications and externalize them using XML and JSON.
 
 This solution is in production at a very, very large retailer, processing millions of requests daily, and has been performing very well since 2009.
 
