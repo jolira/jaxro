@@ -156,7 +156,7 @@ public class JAXROProcessor extends AbstractProcessor {
 
             return new PrintWriter(writer);
         } catch (final IOException e) {
-            throw new Error(e);
+            throw new Error("error creating text file for '" + pkg + "' and '" + filename + "'", e);
         }
     }
 
