@@ -148,15 +148,16 @@ public class JAXROProcessor extends AbstractProcessor {
         }
 
         final Filer filer = processingEnv.getFiler();
+        final String normalized = normalize(pkg);
 
         try {
-            final FileObject file = filer.createResource(SOURCE_OUTPUT, pkg,
+            final FileObject file = filer.createResource(SOURCE_OUTPUT, normalized,
                     filename);
             final Writer writer = file.openWriter();
 
             return new PrintWriter(writer);
         } catch (final IOException e) {
-            throw new Error("error creating text file for '" + pkg + "' and '" + filename + "'", e);
+            throw new Error("error creating text file for '" + normalized + "' and '" + filename + "'", e);
         }
     }
 
@@ -185,11 +186,16 @@ public class JAXROProcessor extends AbstractProcessor {
         generatorJSON.generate();
     }
 
+    String normalize(final String pkg) {
+        return pkg.endsWith(".") ? pkg.substring(0, pkg.length() -1) : pkg;
+    }
+
     private void generateSchema(final Schema schema) {
         final SchemaGenerator generator = new SchemaGenerator(schema) {
             @Override
             protected PrintWriter createTextFile(final String pkg) {
-                return JAXROProcessor.this.createTextFile(pkg,
+                final String normalized = normalize(pkg);
+                return JAXROProcessor.this.createTextFile(normalized,
                         DEFAULT_XSD_FILENAME);
             }
         };
